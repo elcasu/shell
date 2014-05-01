@@ -3,28 +3,43 @@
     <head>
         <title>Admision</title>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            angular.module ('admisionApp', [])
-                .factory ('mongolabResource', function ($http) {
-                    var objName = "persona";
-                    var mongoURL = "https://api.mongolab.com/api/1/databases/shell/collections/" + objName + "?apiKey=94m7FxDlMbXUd6CTqpzwRrk8wCrhJKjc";
-                    return {
-                        getList: function () {
-                            $http.get (mongoURL, function (response) {
-                                console.log (response);
-                            });
-                        }
-                    }
-                })
-                .controller ('listController', function ($scope, mongolabResource) {
-                    mongolabResource.getList ();
-                })
-            ;
-        </script>
+        <script type="text/javascript" src="main.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" media="screen" charset="utf-8">
+        <style type="text/css">
+            .list {
+                width: 400px;
+                float: left;
+            }
+            .form {
+                float: left;
+                margin-left: 20px;
+            }
+            .del {
+                float: right;
+            }
+            body {
+                margin-top: 20px;
+            }
+        </style>
     </head>
-    <body>
-        <div class="list" ng-controller="listController">
-            
+    <body ng-controller="mainController">
+        <div class="list">
+            <div class="list-group list">
+                <a href="#" class="list-group-item active">
+                    Personas
+                </a>
+                <div class="list-group-item" ng-repeat="persona in personas">
+                    {{ persona.nombre }}, {{ persona.apellido }} - {{ persona.documento }}
+                    <a href="#" class="del" ng-click="remove (persona)">Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form">
+            Nombre: <input type="text" ng-model="persona.nombre"><br />
+            Apellido: <input type="text" ng-model="persona.apellido"><br />
+            Documento: <input type="text" ng-model="persona.documento"><br />
+            <button ng-click="agregarPersona ()">Agregar</button>
         </div>
 
         
