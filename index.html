@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="admisionApp">
+    <head>
+        <title>Admision</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
+        <script type="text/javascript" charset="utf-8">
+            angular.module ('admisionApp', [])
+                .factory ('mongolabResource', function ($http) {
+                    var objName = "persona";
+                    var mongoURL = "https://api.mongolab.com/api/1/databases/shell/collections/" + objName + "?apiKey=94m7FxDlMbXUd6CTqpzwRrk8wCrhJKjc";
+                    return {
+                        getList: function () {
+                            $http.get (mongoURL, function (response) {
+                                console.log (response);
+                            });
+                        }
+                    }
+                })
+                .controller ('listController', function ($scope, mongolabResource) {
+                    mongolabResource.getList ();
+                })
+            ;
+        </script>
+    </head>
+    <body>
+        <div class="list" ng-controller="listController">
+            
+        </div>
+
+        
+    </body>
+</html>
